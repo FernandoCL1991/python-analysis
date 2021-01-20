@@ -6,6 +6,7 @@ import os
 import csv
 
 ##CREATING VARIABLES
+total_votes=[]
 total_votes = dict()
 
 
@@ -25,12 +26,15 @@ with open(csvpath, "r") as datafile:
     for row in csvreader:
         counter=counter+1
     print(f"The total number of voters is: {counter}.") ##TOTAL NUMBER OF VOTES CAST.
-    
+
     candidate=row[2]
+    print(candidate)
+#%%
     if candidate not in total_votes:
         total_votes[candidate]=0
         total_votes[candidate]+=1
-
+        print(total_votes)
+#%%
     for candidate, vote_count in total_votes():
         print(f"{candidate} received {str(vote_count)} votes.") ##COMPLETE LIST OF CANDIDATES WHO RECEIVED VOTES
 
@@ -38,3 +42,4 @@ with open(csvpath, "r") as datafile:
 
 
    
+# %%
