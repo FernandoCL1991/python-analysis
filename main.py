@@ -1,66 +1,40 @@
-## PYBANK SCRIPT ## FINISHED
+## PYPOLL SCRIPT ## WORK IT!!!!
 
+#%%
 ##IMPORTING MODULES TO RUN THE SCRIPT
 import os
-import math
-from statistics import mean
-
-##IMPORTING CSV READING MODULE
 import csv
 
+##CREATING VARIABLES
+total_votes = dict()
+
+
 #CREATING THE PATH TO THE DOCUMENT
-csvpath= os.path.join("Resources", "budget_data.csv")
+csvpath = os.path.join ("Resources", "election_data.csv")
 print(csvpath)
 
-#CREATING VARIABLES
-sum_months=[]
-net_change_list=[]
-
-
 #READ THE CSV FILE
-with open(csvpath, 'r') as csvfile:
-    csvreader=csv.reader(csvfile, delimiter=',')
+with open(csvpath, "r") as datafile: 
+    csvreader = csv.reader(datafile, delimiter= ",")
 
-    #CONSIDER THE DATA AFTER THE HEADER , AND SAVING IT AS HEADER
-    csvheader= next(csvreader)
-    first_row = next(csvreader)
+    #OMIT THE HEADER AND STORE IT AS A VARIABLE
+    csvheader = next(csvreader)
 
-    current_net = first_row[1]
-    max_change = 0
-    min_change = 0
-
-    
+    counter= 0
+    #FOR EACH ROW IN csv.reader:
     for row in csvreader:
-        sum_months.append(row[0]) #TOTAL NUMBER OF MONTHS IN THE DATASET.
-        previous_net = current_net #SETTING EQUALITY TO START THE FIRST LOOP AND ALSO APPLYING IT TO THE UPCOMING ONES.
-        current_net=row[1]
-        net_change = float(current_net) - float(previous_net) #NET TOTAL AMOUNT OF PROFIT/LOSSES OVER THE PERIOD.
-        net_change_list.append(net_change)
-        if net_change > max_change: #GREATEST INCREASE IN PROFIT.
-            max_change = net_change
-        if net_change < min_change: #GREATEST DECREASE IN PROFIT.
-            min_change = net_change
-
-
-net_change_average = mean(net_change_list) #RETRIEVING net_change AND APPLYING mean TO GET AVERAGE OF NET CHANGES.
-total_amount= sum(net_change_list) #TOTAL AMOUNT OF NET CHANGES.
-
-output_file = (
-    "Financial Analysis"    
-    "----------------------------------"
-    f"Total Months: {len(sum_months)}"
-    f"Total: ${total_amount}"
-    f"Average Change: ${net_change_average}")
-print(output_file)
-
-#PRINT ANALYSIS TO THE TERMINAL AND EXPORT A TEXT FILE WITH THE RESULTS.
-#Open the output file
-with open(output_file, "w", newline="") as datafile:
-    writer = csv.writer(datafile)
-
-    # Write the header row
-    writer.writerow(["Date", "Profit/Losses"])
-
-    # Write in zipped rows
-    writer.writerows(cleaned_csv)
+        counter=counter+1
+    print(f"The total number of voters is: {counter}.") ##TOTAL NUMBER OF VOTES CAST.
     
+    candidate=row[2]
+    if candidate not in total_votes:
+        total_votes[candidate]=0
+        total_votes[candidate]+=1
+
+    for candidate, vote_count in total_votes():
+        print(f"{candidate} received {str(vote_count)} votes.") ##COMPLETE LIST OF CANDIDATES WHO RECEIVED VOTES
+
+
+
+
+   
